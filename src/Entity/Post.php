@@ -32,7 +32,7 @@ class Post
     private ?\DateTimeInterface $creation_date = null;
 
     #[ORM\Column(length: 255)]
-    private ?text $url = null;
+    private ?string $url = null;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
