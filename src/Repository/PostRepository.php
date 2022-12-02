@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Repository;
-
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -37,6 +36,17 @@ class PostRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findPost($id){
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT post.id, post.title, post.type
+                FROM App:Post post                
+                WHERE post.id =:id
+            ')
+            ->setParameter( 'id', $id )
+            ->getSingleResult();
     }
 
 //    /**
