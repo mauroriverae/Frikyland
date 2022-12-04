@@ -35,7 +35,7 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $file = $form->get('gile')->getData();
+            $file = $form->get('file')->getData();
             $url = str_replace(" ", "-", $form->get('title')->getData());
 
             if($file){
@@ -55,6 +55,7 @@ class PostController extends AbstractController
                     // ... handle exception if something happens during file upload
                 }
 
+                //slugeer va a cambiar el nombre al archiv asi prevenimos ataques a la db 
                 $post ->setFile($newFilename);
 
             }

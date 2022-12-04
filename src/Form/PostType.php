@@ -22,7 +22,7 @@ class PostType extends AbstractType
             ->add('description')
             ->add('file', FileType::class, [
                 'label' => 'photo',
-                'require' => false,
+                'required' => false,
             ])
             ->add('submit', SubmitType::class)
         ;
