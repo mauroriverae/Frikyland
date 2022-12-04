@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
@@ -19,16 +20,26 @@ class UserController extends AbstractController
     }
 
     #[Route('/registration', name: 'userRegistration')]
-    public function userRegistration(Request $request): Response
+    public function userRegistration(Request $request, UserPasswordHasherInterface $passwordHasher): Response 
     {
         $user = new User();
         $registration_form = $this->createForm(UserType::class, $user);
         $registration_form->handleRequest($request);
         if($registration_form->isSubmitted() && $registration_form->isValid()){
+            //Enripto password
+            $plaintextPasswor = $registration_form->get('password')->getData(); 
+            $hashedPassword = $passwordHasher->hashPassword(
+                $user,
+                $plaintextPasswor
+            );
+            $user->setPassword($hashedPassword);
+
+            //finish encript 
+
+            $user ->setRoles(['ROLE_USER']); //USER_ADM RIVSAR DOCUMENTACION 
             $this->em->persist($user);
-            
             $this->em->flush();
-            return $this->redirectToRoute('userRegistation');
+            return $this->redirectToRoute('userRegistration');
         }
 
 
