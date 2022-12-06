@@ -7,6 +7,14 @@
 
 
 {% block body %}
+
     {{parent()}}
     {{dump(post)}}
+
+    {% for post in posts %}
+        <p>{{post.title}}</p>
+
+    
+    {% endfor %}
+
 {% endblock %}
