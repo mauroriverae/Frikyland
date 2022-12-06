@@ -74,6 +74,14 @@ class PostController extends AbstractController
                 'posts' => $posts
         ]);
     }
+    
+    #[Route('/post/details/{id}', name: 'postDetails')]
+    public function postDetails(Post $post) {
+
+        return $this->render('post/post-details.html.twig', ['post' => $post]);
+    }
+
+
 
 /* CUD MANUAL
     #[Route('/post/{id}' , name: 'app_post')]

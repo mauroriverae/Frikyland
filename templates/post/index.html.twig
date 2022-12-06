@@ -6,11 +6,11 @@
     {{parent()}}
     {{form(form)}}
 
-    {{dump(posts)}}
-    <table>
+    
+    <table class="table table-dark table-striped aling-center">
       <thead>
         <tr>
-          <td>id</td>
+          <td class="table-dark">id</td>
           <td>title</td>
           <td>description</td>
           <td>creation  date</td>
@@ -19,16 +19,18 @@
       <tbody>
         {% for post in posts %}
             <tr>
-              <td>{{post.id}}</td>
+              <td><a href="{{ path('postDetails', {id:post.id})}}">Ver</a></td>
               <td>{{post.title}}</td>
               <td>{{post.description}}</td>
               <td>{{post.creation_date | date}}</td>
+              <td>{{post.file }}</td>
             </tr>
 
         {% endfor  %}
       </tbody>
     </table>    
  
+  {# {{dump(posts)}} #}
   {# {{dump(custom_post)}} #}
   {# {{dump(posts)}}
   {{dump(search)}}
